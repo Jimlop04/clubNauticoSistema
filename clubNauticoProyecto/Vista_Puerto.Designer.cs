@@ -29,7 +29,7 @@ namespace clubNauticoProyecto
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.DGV_ListaPuertos = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBoxPuerto = new System.Windows.Forms.GroupBox();
@@ -65,14 +65,14 @@ namespace clubNauticoProyecto
             this.DGV_ListaPuertos.AllowUserToResizeRows = false;
             this.DGV_ListaPuertos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGV_ListaPuertos.BackgroundColor = System.Drawing.Color.LightBlue;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DGV_ListaPuertos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGV_ListaPuertos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.DGV_ListaPuertos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGV_ListaPuertos.Location = new System.Drawing.Point(12, 79);
             this.DGV_ListaPuertos.Name = "DGV_ListaPuertos";
@@ -271,6 +271,7 @@ namespace clubNauticoProyecto
             this.btn_eliminar.TabIndex = 10;
             this.btn_eliminar.Text = "ELIMINAR";
             this.btn_eliminar.UseVisualStyleBackColor = false;
+            this.btn_eliminar.Click += new System.EventHandler(this.btn_eliminar_Click);
             // 
             // txt_editar_nombre_puerto
             // 
@@ -325,6 +326,7 @@ namespace clubNauticoProyecto
             this.txt_buscarPuerto.Name = "txt_buscarPuerto";
             this.txt_buscarPuerto.Size = new System.Drawing.Size(388, 20);
             this.txt_buscarPuerto.TabIndex = 15;
+            this.txt_buscarPuerto.TextChanged += new System.EventHandler(this.txt_buscarPuerto_TextChanged);
             // 
             // Vista_Puerto
             // 

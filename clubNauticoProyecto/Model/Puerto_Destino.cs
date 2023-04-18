@@ -17,6 +17,16 @@ namespace clubNauticoProyecto.Model
             ciudad = new Ciudad();
         }
 
+        public Puerto_Destino(int idPuerto)
+        {
+            this.idPuerto = idPuerto;
+        }
+
+        public Puerto_Destino(string nombrePuerto)
+        {
+            this.nombrePuerto = nombrePuerto;
+        }
+
         public Puerto_Destino(int idPuerto, string nombrePuerto)
         {
             this.idPuerto = idPuerto;

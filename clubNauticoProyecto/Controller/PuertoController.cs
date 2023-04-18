@@ -56,6 +56,14 @@ namespace clubNauticoProyecto.Controller
             cmbListaPais.DisplayMember = listaCiudad.Columns[campodisplay].ToString().Trim();
             cmbListaPais.ValueMember = listaCiudad.Columns[campovalor].ToString().Trim();
         }
+
+        public DataTable busquedaPuerto(Puerto_Destino puerto_Destino)
+        {
+            conexion.SentenciaSQL = "registro_puerto";
+            listaPuerto = conexion.ejecutarSentencia(new SqlParameter("@Busqueda", puerto_Destino.NombrePuerto));
+            return listaPuerto;
+        }
+
         public Puerto_Destino insertPuerto()
         {
             conexion.SentenciaSQL = "regitrar_puerto";
@@ -85,6 +93,14 @@ namespace clubNauticoProyecto.Controller
             cmbListaPais.DataSource = listaPais;
             cmbListaPais.DisplayMember = listaPais.Columns[campodisplay].ToString().Trim();
             cmbListaPais.ValueMember = listaPais.Columns[campovalor].ToString().Trim();
+        }
+
+        public Puerto_Destino deletePuerto()
+        {
+            conexion.SentenciaSQL = "eliminar_puerto";
+            listaPuerto = conexion.ejecutarSentencia(new SqlParameter("@idpuerto", puerto_Destino.IdPuerto));
+            puerto_Destino = new Puerto_Destino();
+            return new Puerto_Destino(Convert.ToInt32(listaPuerto.Rows[0][0]));
         }
     }
 }

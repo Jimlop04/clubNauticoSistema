@@ -14,6 +14,7 @@ namespace clubNauticoProyecto
     public partial class Vista_Puerto : Form
     {
         PuertoController puertoController;
+        CiudadController ciudadController;
         public Vista_Puerto()
         {
             InitializeComponent();
@@ -23,7 +24,7 @@ namespace clubNauticoProyecto
         {
             puertoController = new PuertoController();
             DGV_ListaPuertos.DataSource = puertoController.ListaPuerto;
-            puertoController.llenarListaPais(cmb_pais, "PAIS", "IDPAIS", "registroPais");
+            obtener_pais_seleccion_puerto();
         }
 
         private void lista_ciudades_pais(object sender, EventArgs e)
@@ -55,16 +56,17 @@ namespace clubNauticoProyecto
                 puertoController.Puerto_Destino.NombrePuerto = txt_NomPuerto.Text.ToString();
                 if (puertoController.insertPuerto().IdPuerto==-1)
                 {
-                    MessageBox.Show("La ciudad " + puertoController.Puerto_Destino.NombrePuerto + " ya se encuentra registrado");
+                    MessageBox.Show("El Puerto " + puertoController.Puerto_Destino.NombrePuerto + " ya se encuentra registrado");
                 }
                 else
                 {
-                    MessageBox.Show("La ciudad " + puertoController.Puerto_Destino.NombrePuerto + " se registro correctamente.");
+                    MessageBox.Show("El Puerto " + puertoController.Puerto_Destino.NombrePuerto + " se registro correctamente.");
                     puertoController = new PuertoController();
-                    puertoController.Puerto_Destino.Ciudad.Name_ciudad = " ";
+                    puertoController.Puerto_Destino.NombrePuerto = " ";
                     DGV_ListaPuertos.DataSource = puertoController.ListaPuerto;
+                    obtener_pais_seleccion_puerto();
                     txt_NomPuerto.Text = "";
-                    puertoController.llenarListaPais(cmb_pais, "PAIS", "IDPAIS", "registroPais");
+                  
                 }
             }
             else
@@ -163,6 +165,63 @@ namespace clubNauticoProyecto
         {
             grb_AccionesPuerto.Visible = false;
             groupBoxPuerto.Visible = true;
+        }
+
+        private void obtener_pais_seleccion_puerto()
+        {
+            puertoController = new PuertoController();
+            puertoController.llenarListaPais(cmb_pais, "PAIS", "IDPAIS", "registroPais");
+            if (cmb_pais.Items.Count > 0)
+            {
+                cmb_pais.SelectedIndex = 0;
+                puertoController.Puerto_Destino.Ciudad.Pais.NamePais = cmb_pais.GetItemText(cmb_pais.SelectedItem); // Obtener el valor del DisplayMember
+                puertoController.Puerto_Destino.Ciudad.Pais.IdPais = Convert.ToInt32(cmb_pais.SelectedValue.ToString()); // Obtener el valor del ValueMember
+            }
+        }
+
+        private void obtener_ciudad_seleccion_puerto()
+        {
+            puertoController = new PuertoController();
+            puertoController.llenarListaCiudad(cmb_ListaCiudades, "CIUDAD", "IDCIUDAD", "registroCiudad");
+            if (cmb_ListaCiudades.Items.Count > 0)
+            {
+                cmb_ListaCiudades.SelectedIndex = 0;
+                puertoController.Puerto_Destino.Ciudad.Name_ciudad = cmb_ListaCiudades.GetItemText(cmb_ListaCiudades.SelectedItem); // Obtener el valor del DisplayMember
+                puertoController.Puerto_Destino.Ciudad.IdCiudad = Convert.ToInt32(cmb_ListaCiudades.SelectedValue.ToString()); // Obtener el valor del ValueMember
+            }
+        }
+
+
+        private void btn_eliminar_Click(object sender, EventArgs e)
+        {
+            DialogResult resultado = MessageBox.Show("¿Estás seguro de que deseas eliminar el registro seleccionado?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (resultado == DialogResult.Yes && puertoController.Puerto_Destino.NombrePuerto != "")
+            {
+                if (puertoController.deletePuerto().IdPuerto == 1)
+                {
+                    puertoController = new PuertoController();
+                    ciudadController = new CiudadController();
+                    DGV_ListaPuertos.DataSource = puertoController.ListaPuerto;
+                    MessageBox.Show(txt_editar_nombre_puerto.Text.ToString() + " se elimino correctamente.");
+                    obtener_pais_seleccion_puerto();
+                    txt_editar_nombre_puerto.Text = "";
+                }
+                else
+                {
+                    MessageBox.Show(txt_editar_nombre_puerto.Text.ToString() + " no se elimino.");
+                }
+            }
+            else
+            {
+                MessageBox.Show(txt_editar_nombre_puerto.Text.ToString() + " no se elimino.");
+            }
+            grb_AccionesPuerto.Visible = false;
+            groupBoxPuerto.Visible = true;
+        }
+
+        private void txt_buscarPuerto_TextChanged(object sender, EventArgs e)
+        {
+            DGV_ListaPuertos.DataSource = puertoController.busquedaPuerto(new Puerto_Destino(txt_buscarPuerto.Text.ToString()));
         }
     }
 }
